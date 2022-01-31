@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "172181107024",
+    "firebase_url": "https://dogwalk-342c7-default-rtdb.firebaseio.com",
+    "project_id": "dogwalk-342c7",
+    "storage_bucket": "dogwalk-342c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172181107024:android:a2ac91268a8ccf937cbc55",
+        "android_client_info": {
+          "package_name": "com.example.dogwalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172181107024-4o1vm4n5588r4b2u4oet2jpno2r3tohl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIXEaBljkmfyEL6NtwD1kz3PKVgPpTgUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172181107024-4o1vm4n5588r4b2u4oet2jpno2r3tohl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
