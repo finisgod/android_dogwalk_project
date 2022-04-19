@@ -25,22 +25,21 @@ public class FireBaseAuth {
 
     private String email = "";
     private String password = "";
-    public String Status = "noStatus";
 
     public void Login() {
         if (email.equals("") && password.equals("")) {
-            Status = "isEmpty";
+            //Exception
         } else if (email.equals("")) {
-            Status = "isEmptyLogin";
+            //Exception
         } else if (password.equals("")) {
-            Status = "isEmptyPassword";
+            //Exception
         } else {
             mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
-                Status = "Success";
+                //Exception
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Status = "loginFailed";
+                    //Exception
                 }
             });
         }
@@ -48,20 +47,20 @@ public class FireBaseAuth {
 
     public void Register() {
         if (email.equals("") && password.equals("")) {
-            Status = "isEmpty";
+            //Exception
         } else if (email.equals("")) {
-            Status = "isEmptyLogin";
+            //Exception
         } else if (password.equals("")) {
-            Status = "isEmptyPassword";
+            //Exception
         } else if (password.length() < 6) {
-                Status = "Password must contain more than 6 symbols";
+            //Exception
         } else if (email.length() < 6) {
-                    Status = "Email must contain more than 6 symbols";
+            //Exception
         } else {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Status = "Registered w/o cloud";
+                            //Exception
                             //Cloud
                             FirebaseUser currentUser = mAuth.getCurrentUser();
                             Map<String, Object> Usid = new HashMap<>();
@@ -69,11 +68,11 @@ public class FireBaseAuth {
                             Usid.put("id", currentUser.getUid());
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail()))
-                                    .set(Usid).addOnSuccessListener(aVoid -> Status = "Registered/Cloud created");
+                                    .set(Usid).addOnSuccessListener(aVoid -> {});//Exception
                             //
                         }
                         else {
-                                Status = "Authentication failed.";
+                                //Exception
                              }
                     });
         }
