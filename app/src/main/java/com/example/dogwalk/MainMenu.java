@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.dogwalk.Adapters.DogAdapter;
 import com.example.dogwalk.Backend.Database.FireBaseCmd;
 import com.example.dogwalk.Backend.Objects.DogObject;
 import com.example.dogwalk.Fragments.AddDogFragment;
@@ -25,12 +28,12 @@ import java.util.List;
 import java.util.Map;
 
 public class MainMenu extends FragmentActivity {
-    List<Map<String, Object>> dogs = new ArrayList<>();
+    List<DogObject> dogs = new ArrayList<>();
     FireBaseCmd cmd = new FireBaseCmd();
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        dogs = new ArrayList<>();
+        dogs = new ArrayList<DogObject>();
         cmd.GetAllDogs(dogs);
 
         super.onCreate(savedInstanceState);
@@ -40,7 +43,17 @@ public class MainMenu extends FragmentActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.FragmentActivity, new MainMenuFragment());
         fragmentTransaction.commit();
+    }
 
+    public void UpdateDogList(View view){
+        MainMenuFragment menuFragment = (MainMenuFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
+        if(menuFragment!=null) {
+            ListView listView = (ListView) menuFragment.list;
+            //listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+            DogAdapter adapter = new DogAdapter(this, dogs);
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void AddDogClick(View view)
@@ -51,6 +64,7 @@ public class MainMenu extends FragmentActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.FragmentActivity, fragment);
         fragmentTransaction.commit();
+
         //toast.show();
     }
 
@@ -80,7 +94,7 @@ public class MainMenu extends FragmentActivity {
 
                 FireBaseCmd cmd = new FireBaseCmd();
                 cmd.AddDog(newDog);
-
+                dogs.add(newDog);
                 Toast toast = Toast.makeText(MainMenu.this, "added", Toast.LENGTH_SHORT);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -93,6 +107,7 @@ public class MainMenu extends FragmentActivity {
             Toast toast = Toast.makeText(MainMenu.this, "nullable", Toast.LENGTH_SHORT);
             toast.show();
         }
+
     }
 
 }

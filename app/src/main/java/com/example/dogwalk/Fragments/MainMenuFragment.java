@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,13 +18,14 @@ public class MainMenuFragment extends Fragment {
     public static MainMenuFragment  newInstance() {
         return new MainMenuFragment();
     }
-
+    public ListView list;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.main_menu, container, false);
+        View root = inflater.inflate(R.layout.main_menu, container, false);
+        list = root.findViewById(R.id.dogList);
+        return root;
     }
-
 
 
 

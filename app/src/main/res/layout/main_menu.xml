@@ -11,12 +11,20 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="0dp">
+
+        <ListView
+            android:id="@+id/dogList"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            tools:listitem="@layout/dog_item"/>
+
     <Button
         android:id="@+id/addDogButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="AddDogClick"
         android:text="+"
+        android:layout_gravity="center"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="500dp" />
     <Button
@@ -24,8 +32,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="LogoutClick"
+        android:layout_marginTop="20dp"
         android:text="logout"
+        android:layout_gravity="center"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="500dp" />
+        <Button
+            android:id="@+id/updateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="UpdateDogList"
+            android:layout_marginTop="20dp"
+            android:text="update"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="500dp" />
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

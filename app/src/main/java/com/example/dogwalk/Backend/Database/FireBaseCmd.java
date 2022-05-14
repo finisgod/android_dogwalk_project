@@ -52,7 +52,7 @@ public class FireBaseCmd {
                 .update(dogMap).addOnSuccessListener(aVoid -> {});//Exception
     }
 
-    public void GetAllDogs(List<Map<String, Object>> dogs){
+    public void GetAllDogs(List<DogObject> dogs){
         try {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             assert currentUser != null;
@@ -74,10 +74,12 @@ public class FireBaseCmd {
         }
     }
 
-    public void UpdateList(List<Map<String, Object>> list ,Map<String, Object> obj){
-        list.add(obj);
+    public void UpdateList(List<DogObject> list ,Map<String, Object> obj){
+        DogObject dog = new DogObject(obj.get("name").toString(),obj.get("age").toString(),
+                obj.get("breed").toString());
+        list.add(dog);
     }
-    public void WriteList(List<Map<String, Object>> dogs){
+    public void WriteList(List<DogObject> dogs){
         Log.d(" Dogs to return ", dogs.toString());
     }
 }
