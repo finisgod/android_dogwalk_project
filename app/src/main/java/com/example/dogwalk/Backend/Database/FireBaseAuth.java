@@ -1,7 +1,11 @@
 package com.example.dogwalk.Backend.Database;
 
+import android.content.Intent;
+
 import androidx.annotation.NonNull;
 
+import com.example.dogwalk.MainActivity;
+import com.example.dogwalk.MainMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -35,7 +39,7 @@ public class FireBaseAuth {
             //Exception
         } else {
             mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
-                //Exception
+
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
