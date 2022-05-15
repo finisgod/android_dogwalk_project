@@ -35,8 +35,9 @@ public class FireBaseCmd {
         dogMap.put("name", dog.getName());
         dogMap.put("breed", dog.getBreed());
         dogMap.put("age", dog.getAge());
+        dogMap.put("id", dog.getId());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail())).collection("Dogs").document(dog.getName())
+        db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail())).collection("Dogs").document(dog.getId())
                 .set(dogMap).addOnSuccessListener(aVoid -> {});//Exception
     }
 
@@ -47,8 +48,9 @@ public class FireBaseCmd {
         dogMap.put("name", dog.getName());
         dogMap.put("breed", dog.getBreed());
         dogMap.put("age", dog.getAge());
+        dogMap.put("id", dog.getId());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail())).collection("Dogs").document(dog.getName())
+        db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail())).collection("Dogs").document(dog.getId())
                 .update(dogMap).addOnSuccessListener(aVoid -> {});//Exception
     }
 
@@ -76,7 +78,7 @@ public class FireBaseCmd {
 
     public void UpdateList(List<DogObject> list ,Map<String, Object> obj){
         DogObject dog = new DogObject(obj.get("name").toString(),obj.get("age").toString(),
-                obj.get("breed").toString());
+                obj.get("breed").toString(),obj.get("id").toString());
         list.add(dog);
     }
     public void WriteList(List<DogObject> dogs){

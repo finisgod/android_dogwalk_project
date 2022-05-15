@@ -34,10 +34,8 @@ public class MainActivity extends AppCompatActivity {
             final Intent intent = new Intent(MainActivity.this, MainMenu.class);
             startActivity(intent);
         }
-
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
-
     }
 
     @Override
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //FireBaseAuth User = new FireBaseAuth(email,password);
         //User.Login();
 
+        /* Online
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         if (email.equals("") && password.equals("")) {
@@ -87,7 +86,11 @@ public class MainActivity extends AppCompatActivity {
                     //Exception
                 }
             });
-        }
+        }*/
+
+        //Offline
+        final Intent intent = new Intent(MainActivity.this, MainMenu.class);
+        startActivity(intent);
 
     }
 

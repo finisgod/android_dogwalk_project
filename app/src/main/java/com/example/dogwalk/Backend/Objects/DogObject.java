@@ -2,14 +2,25 @@ package com.example.dogwalk.Backend.Objects;
 
 public class DogObject {
 
+    private String id = "";
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     private String name = "";
     private String age = "";
     private String breed = "";
 
-    public DogObject(String name, String age, String breed) {
+    public DogObject(String name, String age, String breed , String id) {
         this.name = name;
         this.age = age;
         this.breed = breed;
+        this.id = id;
     }
 
     public DogObject() {
