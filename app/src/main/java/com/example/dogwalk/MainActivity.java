@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         //FireBaseAuth User = new FireBaseAuth(email,password);
         //User.Login();
-
-        /* Online
+        
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         if (email.equals("") && password.equals("")) {
@@ -86,12 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     //Exception
                 }
             });
-        }*/
-
-        //Offline
-        final Intent intent = new Intent(MainActivity.this, MainMenu.class);
-        startActivity(intent);
-
+        }
     }
 
     public void onClickRegister(View view) {

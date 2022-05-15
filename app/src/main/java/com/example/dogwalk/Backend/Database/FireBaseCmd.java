@@ -77,9 +77,17 @@ public class FireBaseCmd {
     }
 
     public void UpdateList(List<DogObject> list ,Map<String, Object> obj){
+        boolean update = true;
         DogObject dog = new DogObject(obj.get("name").toString(),obj.get("age").toString(),
                 obj.get("breed").toString(),obj.get("id").toString());
-        list.add(dog);
+        for(int i = 0;i < list.size();i++)
+            if (list.get(i).getId().equals(dog.getId())) {
+                list.get(i).setName(dog.getName());
+                list.get(i).setAge(dog.getAge());
+                list.get(i).setBreed(dog.getBreed());
+                update = false;
+            }
+        if(update){list.add(dog);}
     }
     public void WriteList(List<DogObject> dogs){
         Log.d(" Dogs to return ", dogs.toString());

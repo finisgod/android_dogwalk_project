@@ -42,7 +42,6 @@ public class MainMenuFragment extends Fragment {
 
         DogAdapter adapter = new DogAdapter(this.getContext(), dogs);
         list.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         list.setClickable(false);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -65,7 +64,7 @@ public class MainMenuFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
+        adapter.notifyDataSetChanged();
         return root;
     }
 

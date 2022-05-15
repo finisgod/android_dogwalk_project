@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class MainMenu extends FragmentActivity {
     public List<DogObject> dogs = new ArrayList<>();
@@ -35,14 +36,12 @@ public class MainMenu extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        dogs = new ArrayList<DogObject>();
-        //cmd.GetAllDogs(dogs);
-
-        for(int i = 0 ; i < 5 ; i++){
+        //dogs = new ArrayList<DogObject>();
+        cmd.GetAllDogs(dogs);
+        /*for(int i = 0 ; i < 5 ; i++){
             dogs.add(new DogObject("foo" , "23", "dolmatin"," 1 "));
             dogs.add(new DogObject("lada" , "3", "corgi"," 2 "));
-        }
-
+        }*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_container);
 
@@ -52,13 +51,10 @@ public class MainMenu extends FragmentActivity {
         menuFragment.dogs = dogs;
         fragmentTransaction.replace(R.id.FragmentActivity,menuFragment );
         fragmentTransaction.commit();
-
     }
 
-    public void OnDogItemClick(View view){
-
-    }
     public void UpdateDogList(View view) {
+        cmd.GetAllDogs(dogs);
         MainMenuFragment menuFragment = (MainMenuFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
         if(menuFragment!=null) {
             Toast toast = Toast.makeText(MainMenu.this , "Updated!" , Toast.LENGTH_SHORT );
@@ -105,6 +101,8 @@ public class MainMenu extends FragmentActivity {
                         , nowObj.ageText.getText().toString(), nowObj.breedText.getText().toString(),nowObj.id);
 
                 //Добавить работу с базой
+                FireBaseCmd cmd = new FireBaseCmd();
+                cmd.ChangeDog(newDog);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.FragmentActivity, fragment);
@@ -132,7 +130,7 @@ public class MainMenu extends FragmentActivity {
                     &&(nowObj.breed.getText().toString().length()>0)
                     &&(nowObj.age.getText().toString().length()>0)) {
                 DogObject newDog = new DogObject(nowObj.name.getText().toString()
-                        ,nowObj.age.getText().toString(),nowObj.breed.getText().toString(),"newIdAdd");
+                        ,nowObj.age.getText().toString(),nowObj.breed.getText().toString(), UUID.randomUUID().toString());
 
                 //Добавить классу собаки айди
                 FireBaseCmd cmd = new FireBaseCmd();
