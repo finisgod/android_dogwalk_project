@@ -1,7 +1,10 @@
 package com.example.dogwalk.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,21 +34,28 @@ public class MainMenuFragment extends Fragment {
         return new MainMenuFragment();
     }
     public ListView list;
+    
     public Button update;
     public List<DogObject> dogs = new ArrayList<>();
+    public DogAdapter adapter;
+
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         View root = inflater.inflate(R.layout.main_menu, container, false);
         list = root.findViewById(R.id.dogList);
-        update = root.findViewById(R.id.updateButton);
-
-        DogAdapter adapter = new DogAdapter(this.getContext(), dogs);
+        //update = root.findViewById(R.id.updateButton);
+        adapter = new DogAdapter(this.getContext(), dogs);
         list.setAdapter(adapter);
+        list.setTranscriptMode(ListView.TRANSCRIPT_MODE_DISABLED);
         list.setClickable(false);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MainMenu.pauseThread = true;
                 DogObject selectedDog = (DogObject)adapterView.getItemAtPosition(i);
                 Toast toast = Toast.makeText(adapterView.getContext(),
                         "Name:"+selectedDog.getName().toString()+
@@ -65,6 +75,8 @@ public class MainMenuFragment extends Fragment {
             }
         });
         adapter.notifyDataSetChanged();
+
+
         return root;
     }
 

@@ -1,9 +1,20 @@
 package com.example.dogwalk.Backend.Objects;
 
+import android.net.Uri;
+
 public class DogObject {
 
     private String id = "";
 
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
+    }
+
+    private Uri uri = null;
     public String getId() {
         return id;
     }

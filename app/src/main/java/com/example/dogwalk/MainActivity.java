@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    List<Map<String, Object>> dogs = new ArrayList<>() ;
+    public List<Map<String, Object>> dogs = new ArrayList<>() ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //FireBaseCmd cmd = new FireBaseCmd();
