@@ -3,6 +3,7 @@ package com.example.dogwalk.Adapters;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -60,6 +61,7 @@ public class DogAdapter extends BaseAdapter {
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageReference= storage.getReference();
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -69,7 +71,8 @@ public class DogAdapter extends BaseAdapter {
         DogObject dog = getDog(position);
         ImageView img = view.findViewById(R.id.imageView2);
         ((TextView) view.findViewById(R.id.dogName)).setText(dog.getName());
-        //((TextView) view.findViewById(R.id.dogAge)).setText(dog.getAge());
+        ((TextView) view.findViewById(R.id.walkCount)).setText(Integer.toString(dog.getWalkCounter()));
+        ((TextView) view.findViewById(R.id.foodCount)).setText(Integer.toString(dog.getFoodCounter()));
         //((TextView) view.findViewById(R.id.dogBreed)).setText(dog.getBreed());
         if(dog.getUri()!=null) {
             Glide.with(view).load(dog.getUri()).placeholder(R.drawable.love).diskCacheStrategy(DiskCacheStrategy.ALL).apply(RequestOptions.circleCropTransform()).into(img);

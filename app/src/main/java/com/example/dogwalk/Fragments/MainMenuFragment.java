@@ -57,18 +57,16 @@ public class MainMenuFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MainMenu.pauseThread = true;
                 DogObject selectedDog = (DogObject)adapterView.getItemAtPosition(i);
-                Toast toast = Toast.makeText(adapterView.getContext(),
-                        "Name:"+selectedDog.getName().toString()+
-                        " Age:"+selectedDog.getAge().toString()+
-                        " Breed:"+selectedDog.getBreed().toString(),Toast.LENGTH_SHORT );
-                toast.show();
 
                 ChangeDogFragment fragment = new ChangeDogFragment();
                 fragment.name = selectedDog.getName();
                 fragment.age = selectedDog.getAge();
                 fragment.breed = selectedDog.getBreed();
                 fragment.id = selectedDog.getId();
-                FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+                fragment.uri = selectedDog.getUri();
+                fragment.walkCounter = selectedDog.getWalkCounter();
+                fragment.foodCounter = selectedDog.getFoodCounter();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.FragmentActivity, fragment);
                 fragmentTransaction.commit();

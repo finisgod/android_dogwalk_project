@@ -116,6 +116,7 @@ public class FireBaseCmd {
                         for(int i = 0;i < list.size();i++)
                             if (list.get(i).getId().equals(dog.getId())) {
                                 dog.setUri(uri);
+                                list.get(i).setUri(dog.getUri());
                             }
                     }
                 })

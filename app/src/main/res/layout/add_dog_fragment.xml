@@ -8,49 +8,72 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFECD7"
+        android:gravity="center"
+        android:background="@color/white"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="0dp">
 
-    <EditText
-        android:id="@+id/nameAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Name"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="187dp" />
+        <ImageView
+            android:id="@+id/dogImage"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:onClick="clickAddImg"
+            android:src="@drawable/love" />
+        <EditText
+            android:id="@+id/nameAdd"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Name"
+            />
 
-    <EditText
-        android:id="@+id/breedAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Breed"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="393dp" />
+        <EditText
+            android:id="@+id/breedAdd"
+            android:layout_width="wrap_content"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Breed"
+            />
 
-    <EditText
-        android:id="@+id/ageAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Age"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="289dp" />
+        <EditText
+            android:id="@+id/ageAdd"
+            android:layout_width="wrap_content"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Age"
+            />
 
-    <Button
-        android:id="@+id/commitDogButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="CommitDogClick"
-        android:text="add"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="583dp" />
+        <Button
+            android:id="@+id/commitDogButton"
+            android:layout_width="128dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginTop="24dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button2"
+            android:textColor="@color/black"
+            android:onClick="CommitDogClick"
+            android:text="add"
+            />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

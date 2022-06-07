@@ -1,6 +1,7 @@
 package com.example.dogwalk.Backend.Database;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -39,7 +40,6 @@ public class FireBaseAuth {
             //Exception
         } else {
             mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
-
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
@@ -72,7 +72,8 @@ public class FireBaseAuth {
                             Usid.put("id", currentUser.getUid());
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail()))
-                                    .set(Usid).addOnSuccessListener(aVoid -> {});//Exception
+                                    .set(Usid).addOnSuccessListener(aVoid -> {
+                                        });//Exception
                             //
                         }
                         else {

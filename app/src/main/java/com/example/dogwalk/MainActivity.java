@@ -13,10 +13,13 @@ import com.example.dogwalk.Backend.Database.FireBaseCmd;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     public List<Map<String, Object>> dogs = new ArrayList<>() ;
@@ -93,10 +96,45 @@ public class MainActivity extends AppCompatActivity {
         EditText password_field = findViewById(R.id.editText2);
         String email = email_field.getText().toString();
         String password = password_field.getText().toString();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        //FireBaseAuth User = new FireBaseAuth(email,password);
 
-        FireBaseAuth User = new FireBaseAuth(email,password);
-
-        User.Register();
+        if (email.equals("") && password.equals("")) {
+            //Exception
+        } else if (email.equals("")) {
+            //Exception
+        } else if (password.equals("")) {
+            //Exception
+        } else if (password.length() < 6) {
+            //Exception
+        } else if (email.length() < 6) {
+            //Exception
+        } else {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            //Exception
+                            //Cloud
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            Map<String, Object> Usid = new HashMap<>();
+                            assert currentUser != null;
+                            Usid.put("id", currentUser.getUid());
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail()))
+                                    .set(Usid).addOnSuccessListener(aVoid -> {
+                                        if (mAuth.getCurrentUser() != null)
+                                        {
+                                            final Intent intent = new Intent(MainActivity.this, MainMenu.class);
+                                            startActivity(intent);
+                                        }
+                                    });//Exception
+                            //
+                        }
+                        else {
+                            //Exception
+                        }
+                    });
+        }
         //Status.setText("Status : " + User.Register());
     }
 

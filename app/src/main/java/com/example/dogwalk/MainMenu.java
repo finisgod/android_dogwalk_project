@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.dogwalk.Adapters.DogAdapter;
 import com.example.dogwalk.Backend.Database.FireBaseCmd;
 import com.example.dogwalk.Backend.Objects.DogObject;
@@ -91,6 +94,8 @@ public class MainMenu extends FragmentActivity {
     }
 
     private final int Pick_image = 1;
+
+    public static boolean newDogImg = false;
     public void clickAddImg(View view) {
 
                 //Вызываем стандартную галерею для выбора изображения с помощью Intent.ACTION_PICK:
@@ -115,14 +120,21 @@ public class MainMenu extends FragmentActivity {
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         ImageView img = findViewById(R.id.dogImage);
-                        img.setImageBitmap(selectedImage);
+                        Glide.with(this).load(imageUri).placeholder(R.drawable.love).diskCacheStrategy(DiskCacheStrategy.ALL).apply(RequestOptions.circleCropTransform()).into(img);
                         String id = null;
-
-                        ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
-                        if(nowObj!=null) {
-                            id = nowObj.id;
-                            if(id!=null) {
-                                uploadImage(id);
+                        if(!newDogImg){
+                            ChangeDogFragment nowObj = (ChangeDogFragment) getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
+                            if (nowObj != null) {
+                                id = nowObj.id;
+                                if (id != null) {
+                                    uploadImage(id);
+                                }
+                            }
+                        }
+                        else{
+                            AddDogFragment nowObj = (AddDogFragment) getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
+                            if (nowObj != null) {
+                                nowObj.uri = imageUri;
                             }
                         }
                     } catch (FileNotFoundException e) {
@@ -230,6 +242,47 @@ public class MainMenu extends FragmentActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    public void PlusFoodClick(View view) {
+        ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
+        int foodCounter = nowObj.foodCounter;
+        foodCounter++;
+        nowObj.foodCounter++;
+        TextView label;
+        label = nowObj.foodCounterLabel;
+        label.setText(Integer.toString(foodCounter));
+    }
+    @SuppressLint("SetTextI18n")
+    public void MinusFoodClick(View view) {
+        ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
+        int foodCounter = nowObj.foodCounter;
+        foodCounter--;
+        nowObj.foodCounter--;
+        TextView label;
+        label = nowObj.foodCounterLabel;
+        label.setText(Integer.toString(foodCounter));
+    }
+    @SuppressLint("SetTextI18n")
+    public void PlusWalkClick(View view) {
+        ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
+        int walkCounter = nowObj.walkCounter;
+        walkCounter++;
+        nowObj.walkCounter++;
+        TextView label;
+        label = nowObj.walkCounterLabel;
+        label.setText(Integer.toString(walkCounter));
+    }
+    @SuppressLint("SetTextI18n")
+    public void MinusWalkClick(View view) {
+        ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
+        int walkCounter = nowObj.walkCounter;
+        walkCounter--;
+        nowObj.walkCounter--;
+        TextView label;
+        label = nowObj.walkCounterLabel;
+        label.setText(Integer.toString(walkCounter));
+    }
+
 
     public void AddDogClick(View view)
     {
@@ -256,9 +309,7 @@ public class MainMenu extends FragmentActivity {
     }
 
     public void ChangeDogClick(View view) {
-
         ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
-
         MainMenuFragment fragment = new MainMenuFragment();
         fragment.dogs = dogs;
         if(nowObj!=null) {
@@ -267,6 +318,10 @@ public class MainMenu extends FragmentActivity {
                     && (nowObj.ageText.getText().toString().length() > 0)) {
                 DogObject newDog = new DogObject(nowObj.nameText.getText().toString()
                         , nowObj.ageText.getText().toString(), nowObj.breedText.getText().toString(),nowObj.id);
+
+                newDog.setUri(nowObj.uri);
+                newDog.setFoodCounter(nowObj.foodCounter);
+                newDog.setWalkCounter(nowObj.walkCounter);
 
                 //Добавить работу с базой
                 FireBaseCmd cmd = new FireBaseCmd();
@@ -282,11 +337,6 @@ public class MainMenu extends FragmentActivity {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.FragmentActivity, fragment);
                 fragmentTransaction.commit();
-
-                Toast toast = Toast.makeText(MainMenu.this , "Changed!"+newDog.getName()
-                        + "," + newDog.getAge()
-                        + "," + newDog.getBreed() + newDog.getId(), Toast.LENGTH_SHORT );
-                toast.show();
             }
         }
         else{
@@ -300,15 +350,18 @@ public class MainMenu extends FragmentActivity {
     public void CommitDogClick(View view)
     {
         AddDogFragment nowObj = (AddDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
-
         MainMenuFragment fragment = new MainMenuFragment();
         fragment.dogs = dogs;
         if(nowObj!=null) {
             if((nowObj.name.getText().toString().length()>0)
                     &&(nowObj.breed.getText().toString().length()>0)
                     &&(nowObj.age.getText().toString().length()>0)) {
+                String id = UUID.randomUUID().toString();
                 DogObject newDog = new DogObject(nowObj.name.getText().toString()
-                        ,nowObj.age.getText().toString(),nowObj.breed.getText().toString(), UUID.randomUUID().toString());
+                        ,nowObj.age.getText().toString(),nowObj.breed.getText().toString(),id );
+
+                newDog.setUri(nowObj.uri);
+                uploadImage(id);
 
                 //Добавить классу собаки айди
                 FireBaseCmd cmd = new FireBaseCmd();

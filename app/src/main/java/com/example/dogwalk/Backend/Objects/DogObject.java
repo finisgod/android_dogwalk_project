@@ -14,6 +14,25 @@ public class DogObject {
         this.uri = uri;
     }
 
+    public int getFoodCounter() {
+        return foodCounter;
+    }
+
+    public void setFoodCounter(int foodCounter) {
+        this.foodCounter = foodCounter;
+    }
+
+    public int getWalkCounter() {
+        return walkCounter;
+    }
+
+    public void setWalkCounter(int walkCounter) {
+        this.walkCounter = walkCounter;
+    }
+
+    public int foodCounter = 0;
+    public int walkCounter = 0;
+
     private Uri uri = null;
     public String getId() {
         return id;

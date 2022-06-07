@@ -4,10 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/carbo/Desktop/Android/dogwalk/app/src/main/res/layout/activity_main.xml" value="0.175" />
+        <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/drawable/circle.xml" value="0.197" />
         <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/drawable/img.xml" value="0.1955" />
         <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/drawable/round_button.xml" value="0.1945" />
+        <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/drawable/round_button2.xml" value="0.197" />
+        <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/drawable/round_button3.xml" value="0.105" />
         <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/layout/activity_main.xml" value="0.18854166666666666" />
-        <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/layout/change_dog_fragment.xml" value="0.2" />
+        <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/layout/add_dog_fragment.xml" value="0.10190217391304347" />
+        <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/layout/change_dog_fragment.xml" value="0.14" />
         <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/layout/circle.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/layout/dog_item.xml" value="0.2" />
         <entry key="..\:/Users/carbo/Desktop/KRFINAL/android_dogwalk_project/app/src/main/res/layout/main_menu.xml" value="0.15" />
