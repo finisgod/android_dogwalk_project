@@ -47,6 +47,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -145,7 +146,15 @@ public class MainMenu extends FragmentActivity {
                     }
                 }
         }}
-
+    public boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com");
+            //You can replace it with your name
+            return !ipAddr.equals("");
+        } catch (Exception e) {
+            return false;
+        }
+    }
     //Фоновая работа с базой
     public void startThread() {
         ExampleRunnable runnable = new ExampleRunnable();
@@ -157,6 +166,7 @@ public class MainMenu extends FragmentActivity {
         @Override
         public void run() {
             for (int i = 0; i > -1; i++) {
+                Log.d(TAG, "uiDatabaseThreadRunning: " + isInternetAvailable());
                 if (!stopThread) {
                     if (!pauseThread) {
                         int finalI = i;

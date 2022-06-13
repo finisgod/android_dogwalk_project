@@ -148,14 +148,14 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         else {
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            if(currentUser==null){
+                                email_field.setError("Try Another Email / Registration is failed");
+                                password_field.setError("Try Another Email / Registration is failed");
+                            }
                             dialog.dismiss();
                         }
                     });
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if(currentUser==null){
-                email_field.setError("Try Another Email / Registration is failed");
-                password_field.setError("Try Another Email / Registration is failed");
-            }
         }
         //Status.setText("Status : " + User.Register());
     }

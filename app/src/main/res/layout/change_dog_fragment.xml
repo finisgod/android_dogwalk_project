@@ -54,12 +54,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="48dp"
+                android:textSize="16sp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Name"
                 android:inputType="textPersonName"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black" />
         </LinearLayout>
@@ -90,10 +89,9 @@
                 android:layout_marginRight="48dp"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textSize="16sp"
                 android:hint="Breed"
                 android:inputType="textPersonName"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black" />
 
@@ -126,9 +124,9 @@
                 android:layout_marginRight="48dp"
                 android:layout_weight="1"
                 android:ems="10"
+                android:textSize="16sp"
                 android:hint="Age"
                 android:inputType="textPersonName"
-                android:paddingTop="24dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black" />
         </LinearLayout>

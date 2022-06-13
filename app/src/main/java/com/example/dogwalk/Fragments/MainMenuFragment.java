@@ -39,8 +39,6 @@ public class MainMenuFragment extends Fragment {
     public List<DogObject> dogs = new ArrayList<>();
     public DogAdapter adapter;
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -73,8 +71,6 @@ public class MainMenuFragment extends Fragment {
             }
         });
         adapter.notifyDataSetChanged();
-
-
         return root;
     }
 
