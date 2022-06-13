@@ -1,10 +1,13 @@
 package com.example.dogwalk;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,11 +72,12 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         if (email.equals("") && password.equals("")) {
-            //Exception
+            email_field.setError("Required E-mail more than 6 symbols");
+            password_field.setError("Required password more than 6 symbols");
         } else if (email.equals("")) {
-            //Exception
+            email_field.setError("Required E-mail more than 6 symbols");
         } else if (password.equals("")) {
-            //Exception
+            password_field.setError("Required password more than 6 symbols");
         } else {
             mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -82,12 +86,23 @@ public class MainActivity extends AppCompatActivity {
                     final Intent intent = new Intent(MainActivity.this, MainMenu.class);
                     startActivity(intent);
                 }
+
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    //Exception
+
                 }
             });
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser==null){
+                email_field.setError("Try Another Password or E-mail / Login is failed");
+                password_field.setError("Try Another Password or E-mail / Login is failed");
+            }
         }
     }
 
@@ -100,16 +115,19 @@ public class MainActivity extends AppCompatActivity {
         //FireBaseAuth User = new FireBaseAuth(email,password);
 
         if (email.equals("") && password.equals("")) {
-            //Exception
+            email_field.setError("Required E-mail more than 6 symbols");
+            password_field.setError("Required password more than 6 symbols");
         } else if (email.equals("")) {
-            //Exception
+            email_field.setError("Required E-mail more than 6 symbols");
         } else if (password.equals("")) {
-            //Exception
+            password_field.setError("Required password more than 6 symbols");
         } else if (password.length() < 6) {
-            //Exception
+            password_field.setError("Required password more than 6 symbols");
         } else if (email.length() < 6) {
-            //Exception
+            email_field.setError("Required E-mail more than 6 symbols");
         } else {
+            ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                    "Loading. Please wait...", true);
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -117,23 +135,27 @@ public class MainActivity extends AppCompatActivity {
                             //Cloud
                             FirebaseUser currentUser = mAuth.getCurrentUser();
                             Map<String, Object> Usid = new HashMap<>();
-                            assert currentUser != null;
-                            Usid.put("id", currentUser.getUid());
-                            FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail()))
-                                    .set(Usid).addOnSuccessListener(aVoid -> {
-                                        if (mAuth.getCurrentUser() != null)
-                                        {
+                            if(currentUser!=null) {
+                                Usid.put("id", currentUser.getUid());
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail()))
+                                        .set(Usid).addOnSuccessListener(aVoid -> {
+                                            dialog.dismiss();
                                             final Intent intent = new Intent(MainActivity.this, MainMenu.class);
                                             startActivity(intent);
-                                        }
-                                    });//Exception
-                            //
+                                        });//Exception
+                                //
+                            }
                         }
                         else {
-                            //Exception
+                            dialog.dismiss();
                         }
                     });
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser==null){
+                email_field.setError("Try Another Email / Registration is failed");
+                password_field.setError("Try Another Email / Registration is failed");
+            }
         }
         //Status.setText("Status : " + User.Register());
     }

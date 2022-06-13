@@ -1,7 +1,10 @@
 package com.example.dogwalk;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -256,11 +259,20 @@ public class MainMenu extends FragmentActivity {
     public void MinusFoodClick(View view) {
         ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
         int foodCounter = nowObj.foodCounter;
-        foodCounter--;
-        nowObj.foodCounter--;
-        TextView label;
-        label = nowObj.foodCounterLabel;
-        label.setText(Integer.toString(foodCounter));
+        if(foodCounter>0) {
+            foodCounter--;
+            nowObj.foodCounter--;
+            TextView label;
+            label = nowObj.foodCounterLabel;
+            label.setText(Integer.toString(foodCounter));
+        }
+        else{
+            foodCounter=0;
+            nowObj.foodCounter=0;
+            TextView label;
+            label = nowObj.foodCounterLabel;
+            label.setText(Integer.toString(foodCounter));
+        }
     }
     @SuppressLint("SetTextI18n")
     public void PlusWalkClick(View view) {
@@ -276,11 +288,20 @@ public class MainMenu extends FragmentActivity {
     public void MinusWalkClick(View view) {
         ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
         int walkCounter = nowObj.walkCounter;
-        walkCounter--;
-        nowObj.walkCounter--;
-        TextView label;
-        label = nowObj.walkCounterLabel;
-        label.setText(Integer.toString(walkCounter));
+        if(walkCounter>0) {
+            walkCounter--;
+            nowObj.walkCounter--;
+            TextView label;
+            label = nowObj.walkCounterLabel;
+            label.setText(Integer.toString(walkCounter));
+        }
+        else{
+            walkCounter=0;
+            nowObj.walkCounter=0;
+            TextView label;
+            label = nowObj.walkCounterLabel;
+            label.setText(Integer.toString(walkCounter));
+        }
     }
 
 
@@ -309,6 +330,9 @@ public class MainMenu extends FragmentActivity {
     }
 
     public void ChangeDogClick(View view) {
+        ProgressDialog dialog = ProgressDialog.show(MainMenu.this, "",
+                "Loading. Please wait...", true);
+
         ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
         MainMenuFragment fragment = new MainMenuFragment();
         fragment.dogs = dogs;
@@ -317,7 +341,7 @@ public class MainMenu extends FragmentActivity {
                     && (nowObj.breedText.getText().toString().length() > 0)
                     && (nowObj.ageText.getText().toString().length() > 0)) {
                 DogObject newDog = new DogObject(nowObj.nameText.getText().toString()
-                        , nowObj.ageText.getText().toString(), nowObj.breedText.getText().toString(),nowObj.id);
+                        , nowObj.ageText.getText().toString(), nowObj.breedText.getText().toString(), nowObj.id);
 
                 newDog.setUri(nowObj.uri);
                 newDog.setFoodCounter(nowObj.foodCounter);
@@ -327,9 +351,9 @@ public class MainMenu extends FragmentActivity {
                 FireBaseCmd cmd = new FireBaseCmd();
                 cmd.ChangeDog(newDog);
 
-                for(int i = 0;i < dogs.size();i++){
-                    if(dogs.get(i).getId().equals(newDog.getId())){
-                        dogs.set(i,newDog);
+                for (int i = 0; i < dogs.size(); i++) {
+                    if (dogs.get(i).getId().equals(newDog.getId())) {
+                        dogs.set(i, newDog);
                     }
                 }
 
@@ -337,28 +361,70 @@ public class MainMenu extends FragmentActivity {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.FragmentActivity, fragment);
                 fragmentTransaction.commit();
+                dialog.dismiss();
+                pauseThread = false;
+            } else {
+                dialog.dismiss();
+                if (nowObj.nameText.getText().toString().length() == 0)
+                    nowObj.nameText.setError("Empty name");
+                if (nowObj.ageText.getText().toString().length() == 0)
+                    nowObj.ageText.setError("Empty age");
+                if (nowObj.breedText.getText().toString().length() == 0)
+                    nowObj.breedText.setError("Empty Breed");
             }
         }
-        else{
-            Toast toast = Toast.makeText(MainMenu.this, "nullable", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+    }
 
-        pauseThread = false;
+    public void DeleteDogClick(View view) {
+
+        new AlertDialog.Builder(MainMenu.this)
+                .setTitle("Delete dog")
+                .setMessage("Are you sure you want to delete this dog?")
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
+                        MainMenuFragment fragment = new MainMenuFragment();
+                        fragment.dogs = dogs;
+                        if(nowObj!=null) {
+                            //Добавить работу с базой
+                            FireBaseCmd cmd = new FireBaseCmd();
+                            cmd.DeleteDog(nowObj.id);
+
+                            for (int i = 0; i < dogs.size(); i++) {
+                                if (dogs.get(i).getId().equals(nowObj.id)) {
+                                    dogs.remove(i);
+                                }
+                            }
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.FragmentActivity, fragment);
+                            fragmentTransaction.commit();
+                            pauseThread = false;
+                        }
+                    }
+                })
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     public void CommitDogClick(View view)
     {
+        ProgressDialog dialog = ProgressDialog.show(MainMenu.this, "",
+                "Loading. Please wait...", true);
         AddDogFragment nowObj = (AddDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
         MainMenuFragment fragment = new MainMenuFragment();
         fragment.dogs = dogs;
         if(nowObj!=null) {
-            if((nowObj.name.getText().toString().length()>0)
-                    &&(nowObj.breed.getText().toString().length()>0)
-                    &&(nowObj.age.getText().toString().length()>0)) {
+            if ((nowObj.name.getText().toString().length() > 0)
+                    && (nowObj.breed.getText().toString().length() > 0)
+                    && (nowObj.age.getText().toString().length() > 0)) {
                 String id = UUID.randomUUID().toString();
                 DogObject newDog = new DogObject(nowObj.name.getText().toString()
-                        ,nowObj.age.getText().toString(),nowObj.breed.getText().toString(),id );
+                        , nowObj.age.getText().toString(), nowObj.breed.getText().toString(), id);
 
                 newDog.setUri(nowObj.uri);
                 uploadImage(id);
@@ -367,19 +433,23 @@ public class MainMenu extends FragmentActivity {
                 FireBaseCmd cmd = new FireBaseCmd();
                 cmd.AddDog(newDog);
                 dogs.add(newDog);
-                Toast toast = Toast.makeText(MainMenu.this, "added", Toast.LENGTH_SHORT);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.FragmentActivity, fragment);
                 fragmentTransaction.commit();
-                toast.show();
+                dialog.dismiss();
+                pauseThread = false;
+            } else {
+                dialog.dismiss();
+                if (nowObj.name.getText().toString().length() == 0)
+                    nowObj.name.setError("Empty name");
+                if (nowObj.age.getText().toString().length() == 0)
+                    nowObj.age.setError("Empty age");
+                if (nowObj.breed.getText().toString().length() == 0)
+                    nowObj.breed.setError("Empty Breed");
             }
         }
-        else{
-            Toast toast = Toast.makeText(MainMenu.this, "nullable", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-        pauseThread = false;
+
     }
 
     private static Uri filePath = null;

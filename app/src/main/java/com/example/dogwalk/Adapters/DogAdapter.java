@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -68,8 +69,32 @@ public class DogAdapter extends BaseAdapter {
         if (view == null) {
             view = inflater.inflate(R.layout.dog_item, parent, false);
         }
+
         DogObject dog = getDog(position);
+
+        if(dog.getFoodCounter()==0||dog.getWalkCounter()==0) {
+            view.setBackground(ContextCompat.getDrawable(context, R.drawable.item_no));
+        }
+        else
+        if(dog.getFoodCounter()>1||dog.getWalkCounter()>1) {
+            view.setBackground(ContextCompat.getDrawable(context, R.drawable.item_yes));
+        }
+
         ImageView img = view.findViewById(R.id.imageView2);
+        ImageView img_food = view.findViewById(R.id.food);
+        ImageView img_walk = view.findViewById(R.id.walk);
+        if(dog.getFoodCounter()==0){
+            Glide.with(view).load(R.drawable.food_no).placeholder(R.drawable.food_no).diskCacheStrategy(DiskCacheStrategy.ALL).into(img_food);
+        }
+        if(dog.getWalkCounter()==0){
+            Glide.with(view).load(R.drawable.walk_no).placeholder(R.drawable.walk_no).diskCacheStrategy(DiskCacheStrategy.ALL).into(img_walk);
+        }
+        if(dog.getFoodCounter()>1){
+            Glide.with(view).load(R.drawable.food_yes).placeholder(R.drawable.food_no).diskCacheStrategy(DiskCacheStrategy.ALL).into(img_food);
+        }
+        if(dog.getWalkCounter()>1){
+            Glide.with(view).load(R.drawable.walk_yes).placeholder(R.drawable.walk_no).diskCacheStrategy(DiskCacheStrategy.ALL).into(img_walk);
+        }
         ((TextView) view.findViewById(R.id.dogName)).setText(dog.getName());
         ((TextView) view.findViewById(R.id.walkCount)).setText(Integer.toString(dog.getWalkCounter()));
         ((TextView) view.findViewById(R.id.foodCount)).setText(Integer.toString(dog.getFoodCounter()));

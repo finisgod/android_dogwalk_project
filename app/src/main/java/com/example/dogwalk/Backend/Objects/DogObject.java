@@ -30,8 +30,6 @@ public class DogObject {
         this.walkCounter = walkCounter;
     }
 
-    public int foodCounter = 0;
-    public int walkCounter = 0;
 
     private Uri uri = null;
     public String getId() {
@@ -45,6 +43,8 @@ public class DogObject {
     private String name = "";
     private String age = "";
     private String breed = "";
+    public int foodCounter = 0;
+    public int walkCounter = 0;
 
     public DogObject(String name, String age, String breed , String id) {
         this.name = name;

@@ -47,8 +47,8 @@ public class ChangeDogFragment extends Fragment {
     public TextView foodCounterLabel;
     public TextView walkCounterLabel;
 
-    public int foodCounter = 2;
-    public int walkCounter = 2;
+    public int foodCounter;
+    public int walkCounter;
 
     private Uri filePath;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -72,10 +72,13 @@ public class ChangeDogFragment extends Fragment {
         nameText = root.findViewById(R.id.nameAdd);
         nameText.setText(name);
 
+
         foodCounterLabel = root.findViewById(R.id.foodCounterLabel);
         foodCounterLabel.setText(Integer.toString(foodCounter));
+
         walkCounterLabel = root.findViewById(R.id.walkCounterLabel);
         walkCounterLabel.setText(Integer.toString(walkCounter));
+
 
         ageText = root.findViewById(R.id.ageAdd);
         ageText.setText(age);

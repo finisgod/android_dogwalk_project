@@ -1,278 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
 
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_marginBottom="32dp"
+        android:layout_marginRight="24dp"
         android:layout_weight="1"
-        android:paddingBottom="32dp"
-        android:paddingTop="32dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
         android:background="@color/white"
+        android:gravity="center"
         android:orientation="vertical"
-        >
+        android:paddingLeft="32dp"
+        android:paddingTop="64dp"
+        android:paddingRight="32dp"
+        android:paddingBottom="64dp">
 
         <ImageView
             android:id="@+id/dogImage"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:layout_weight="1"
             android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:layout_height="120dp"
+            android:layout_weight="1"
             android:onClick="clickAddImg"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             app:srcCompat="@drawable/love" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name : "
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textAlignment="center"/>
-    <EditText
-        android:id="@+id/nameAdd"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp"
-        android:layout_marginRight="48dp"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Name"
-         />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:id="@+id/textView"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Breed : "
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:textAlignment="center"/>
-    <EditText
-        android:id="@+id/breedAdd"
-        android:layout_width="match_parent"
-        android:paddingTop="24dp"
-        android:layout_marginRight="48dp"
-        android:paddingBottom="24dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Breed"
-         />
-
-    </LinearLayout>
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Age : "
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textAlignment="center"/>
-    <EditText
-        android:id="@+id/ageAdd"
-        android:layout_width="match_parent"
-        android:paddingTop="24dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:layout_weight="1"
-        android:layout_marginRight="48dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Age"
-         />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
             android:layout_weight="1"
             android:background="@color/white"
-            android:orientation="vertical"
-            >
-        <ImageView
-            android:id="@+id/foodCounterimg"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/food" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@drawable/round_button3"
-                android:orientation="horizontal"
-                >
+                android:text="Name : "
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/foodPlusButton"
-                android:background="@drawable/round_button3"
-                android:layout_width="32dp"
-                android:layout_height="64dp"
-
+            <EditText
+                android:id="@+id/nameAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="48dp"
                 android:layout_weight="1"
-                android:textSize="32sp"
-                android:onClick="MinusFoodClick"
-                android:text="-" />
-                <TextView
-                    android:id="@+id/foodCounterLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="24sp"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:text="0" />
-            <Button
-                android:id="@+id/foodMinusButton"
-                android:background="@drawable/round_button3"
-                android:layout_width="32dp"
-                android:onClick="PlusFoodClick"
-                android:layout_height="64dp"
-                android:layout_weight="1"
-                android:textSize="32sp"
-                android:text="+" />
-            </LinearLayout>
-
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:gravity="center"
             android:background="@color/white"
-            android:orientation="vertical"
-            >
-        <ImageView
-            android:id="@+id/walkCounterimg"
-            android:layout_weight="1"
-            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Breed : "
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/breedAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="48dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Breed"
+                android:inputType="textPersonName"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:src="@drawable/walk" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Age : "
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/ageAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="48dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="textPersonName"
+                android:paddingTop="24dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:paddingTop="32dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_weight="1"
-                android:background="@drawable/round_button3"
-                android:orientation="horizontal"
-                >
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="8dp"
+                android:paddingTop="16dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="16dp">
 
-                <Button
-                    android:id="@+id/walkPlusButton"
-                    android:background="@drawable/round_button3"
-                    android:layout_width="32dp"
-                    android:layout_height="64dp"
-                    android:onClick="MinusWalkClick"
+                <ImageView
+                    android:id="@+id/foodCounterimg"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_weight="1"
-                    android:textSize="32sp"
-                    android:text="-" />
-                <TextView
-                    android:id="@+id/walkCounterLabel"
-                    android:layout_width="wrap_content"
+                    android:src="@drawable/food" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="24sp"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:text="0" />
-                <Button
-                    android:id="@+id/walkMinusButton"
                     android:background="@drawable/round_button3"
-                    android:layout_width="32dp"
-                    android:layout_height="64dp"
-                    android:onClick="PlusWalkClick"
-                    android:layout_weight="1"
-                    android:textSize="32sp"
-                    android:text="+" />
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/foodPlusButton"
+                        android:layout_width="24dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+
+                        android:background="@drawable/round_button3"
+                        android:onClick="MinusFoodClick"
+                        android:text="-"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/foodCounterLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/foodMinusButton"
+                        android:layout_width="24dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_button3"
+                        android:onClick="PlusFoodClick"
+                        android:text="+"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="8dp"
+                android:paddingTop="16dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/walkCounterimg"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/walk" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_button3"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/walkPlusButton"
+                        android:layout_width="24dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_button3"
+                        android:onClick="MinusWalkClick"
+                        android:text="-"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/walkCounterLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/walkMinusButton"
+                        android:layout_width="24dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_button3"
+                        android:onClick="PlusWalkClick"
+                        android:text="+"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <Button
-        android:id="@+id/commitDogButton"
-        android:layout_width="128dp"
-        android:paddingTop="12dp"
-        android:layout_weight="1"
-        android:paddingBottom="12dp"
-        android:layout_marginTop="24dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/round_button2"
-        android:textColor="@color/black"
-        android:onClick="ChangeDogClick"
-        android:text="change"
-         />
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/commitDogButton"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/round_button4"
+            android:onClick="ChangeDogClick"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="change"
+            android:textColor="@color/black" />
+        <Button
+            android:id="@+id/deleteDogButton"
+            android:layout_width="64dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_small_red"
+            android:onClick="DeleteDogClick"
+            android:layout_marginTop="32dp"
+            android:textSize="8sp"
+            android:text="delete"
+            android:textColor="@android:color/holo_red_dark" />
 
-
-
-
+    </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

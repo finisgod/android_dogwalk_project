@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.dogwalk.Backend.Objects.DogObject;
+import com.example.dogwalk.Fragments.ChangeDogFragment;
 import com.example.dogwalk.MainMenu;
 import com.example.dogwalk.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +33,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +47,7 @@ public class FireBaseCmd {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public void AddDog(DogObject dog){
+        Date currentTime = Calendar.getInstance().getTime();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Map<String, Object> dogMap = new HashMap<>();
         assert currentUser != null;
@@ -51,12 +55,16 @@ public class FireBaseCmd {
         dogMap.put("breed", dog.getBreed());
         dogMap.put("age", dog.getAge());
         dogMap.put("id", dog.getId());
+        dogMap.put("food", Integer.toString(0));
+        dogMap.put("walk", Integer.toString(0));
+        dogMap.put("date", currentTime.toString());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail())).collection("Dogs").document(dog.getId())
                 .set(dogMap).addOnSuccessListener(aVoid -> {});//Exception
     }
 
     public void ChangeDog(DogObject dog){
+        Date currentTime = Calendar.getInstance().getTime();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Map<String, Object> dogMap = new HashMap<>();
         assert currentUser != null;
@@ -64,13 +72,25 @@ public class FireBaseCmd {
         dogMap.put("breed", dog.getBreed());
         dogMap.put("age", dog.getAge());
         dogMap.put("id", dog.getId());
+        dogMap.put("food", dog.getFoodCounter());
+        dogMap.put("walk", dog.getWalkCounter());
+        dogMap.put("date", currentTime.toString());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail())).collection("Dogs").document(dog.getId())
                 .update(dogMap).addOnSuccessListener(aVoid -> {});//Exception
     }
+    public void DeleteDog(String id){
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Users").document(Objects.requireNonNull(currentUser.getEmail())).collection("Dogs").document(id)
+                .delete().addOnSuccessListener(aVoid -> {});//Exception
+    }
 
     public void GetAllDogs(List<DogObject> dogs){
         try {
+
             FirebaseUser currentUser = mAuth.getCurrentUser();
             assert currentUser != null;
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -93,15 +113,32 @@ public class FireBaseCmd {
 
     public void UpdateList(List<DogObject> list ,Map<String, Object> obj){
         boolean update = true;
+        Date currentTime = Calendar.getInstance().getTime();
+        String[] timeString = currentTime.toString().split(" ");
 
         DogObject dog = new DogObject(obj.get("name").toString(),obj.get("age").toString(),
                 obj.get("breed").toString(),obj.get("id").toString());
+
+        //Ежедневное обнуление прогулок/кормежки
+        if(!timeString[2].equals(obj.get("date").toString().split(" ")[2])||(!timeString[1].equals(obj.get("date").toString().split(" ")[1]))){
+            Log.d("Change time ",  timeString[2] + " / " + obj.get("date").toString().split(" ")[2]);
+            Log.d("Change date ",  timeString[1] + " / " + obj.get("date").toString().split(" ")[1]);
+            dog.setWalkCounter(Integer.parseInt(Integer.toString(0)));
+            dog.setFoodCounter(Integer.parseInt(Integer.toString(0)));
+            ChangeDog(dog);
+        }
+        else {
+            dog.setWalkCounter(Integer.parseInt(obj.get("walk").toString()));
+            dog.setFoodCounter(Integer.parseInt(obj.get("food").toString()));
+        }
 
         for(int i = 0;i < list.size();i++)
             if (list.get(i).getId().equals(dog.getId())) {
                 list.get(i).setName(dog.getName());
                 list.get(i).setAge(dog.getAge());
                 list.get(i).setBreed(dog.getBreed());
+                list.get(i).setFoodCounter(dog.getFoodCounter());
+                list.get(i).setWalkCounter(dog.getWalkCounter());
                 update = false;
             }
         if(update){list.add(dog);}
