@@ -70,13 +70,17 @@ public class MainActivity extends AppCompatActivity {
         //User.Login();
         
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
+        ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                "Loading. Please wait...", true);
         if (email.equals("") && password.equals("")) {
+            dialog.dismiss();
             email_field.setError("Required E-mail more than 6 symbols");
             password_field.setError("Required password more than 6 symbols");
         } else if (email.equals("")) {
+            dialog.dismiss();
             email_field.setError("Required E-mail more than 6 symbols");
         } else if (password.equals("")) {
+            dialog.dismiss();
             password_field.setError("Required password more than 6 symbols");
         } else {
             mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
@@ -86,23 +90,19 @@ public class MainActivity extends AppCompatActivity {
                     final Intent intent = new Intent(MainActivity.this, MainMenu.class);
                     startActivity(intent);
                 }
-
+                dialog.dismiss();
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    if(currentUser==null){
+                        email_field.setError("Try Another Password or E-mail / Login is failed");
+                        password_field.setError("Try Another Password or E-mail / Login is failed");
+                    }
+                    dialog.dismiss();
                 }
             });
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if(currentUser==null){
-                email_field.setError("Try Another Password or E-mail / Login is failed");
-                password_field.setError("Try Another Password or E-mail / Login is failed");
-            }
+
         }
     }
 

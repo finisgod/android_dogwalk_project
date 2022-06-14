@@ -386,15 +386,13 @@ public class MainMenu extends FragmentActivity {
     }
 
     public void DeleteDogClick(View view) {
-
         new AlertDialog.Builder(MainMenu.this)
                 .setTitle("Delete dog")
                 .setMessage("Are you sure you want to delete this dog?")
-                // Specifying a listener allows you to take an action before dismissing the dialog.
-                // The dialog is automatically dismissed when a dialog button is clicked.
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager().findFragmentById(R.id.FragmentActivity);
+                        ChangeDogFragment nowObj = (ChangeDogFragment)getSupportFragmentManager()
+                                .findFragmentById(R.id.FragmentActivity);
                         MainMenuFragment fragment = new MainMenuFragment();
                         fragment.dogs = dogs;
                         if(nowObj!=null) {
@@ -415,7 +413,6 @@ public class MainMenu extends FragmentActivity {
                         }
                     }
                 })
-                // A null listener allows the button to dismiss the dialog and take no further action.
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
